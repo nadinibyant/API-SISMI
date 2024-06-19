@@ -264,7 +264,7 @@ const editPengguna = async (req,res) => {
                 await modelAsisten.update({
                     nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
                     ttd_asisten: ttd.originalname,
-                    role: findRole.id_role || findNamaAsisten.id_role
+                    id_role: findRole.id_role || findNamaAsisten.id_role
                 }, {
                     where:{
                         nama_asisten: nama
@@ -274,7 +274,7 @@ const editPengguna = async (req,res) => {
             }
             await modelAsisten.update({
                 nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
-                role: findRole.id_role || findNamaAsisten.id_rp
+                id_role: findRole.id_role || findNamaAsisten.id_role
             }, {
                 where:{nama_asisten: nama}
             })
@@ -288,7 +288,7 @@ const editPengguna = async (req,res) => {
                 nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
                 password_asisten: hashedPass,
                 ttd_asisten: ttd.originalname,
-                role: findRole.id_role || findNamaAsisten.id_role
+                id_role: findRole.id_role || findNamaAsisten.id_role
             }, {
                 where:{
                     nama_asisten: nama
@@ -299,8 +299,7 @@ const editPengguna = async (req,res) => {
         await modelAsisten.update({
             nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
             password_asisten: hashedPass || findNamaAsisten.password_asisten,
-    
-            role: findRole.id_role || findNamaAsisten.id_role
+            id_role: findRole.id_role || findNamaAsisten.id_role
         }, {
             where: {
                 nama_asisten: nama
