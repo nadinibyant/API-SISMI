@@ -125,9 +125,9 @@ const dataPengguna = async (req,res) => {
             return res.status(400).json({success: false, message: 'Data asisten belum tersedia'})
         }
         const findDataKalab = await modelKalab.findAll()
-        if (findDataKalab.length <= 0) {
-            return res.status(400).json({success: false, message: 'Data kepala laboratorium belum tersedia'})
-        }
+        // if (findDataKalab.length <= 0) {
+        //     return res.status(400).json({success: false, message: 'Data kepala laboratorium belum tersedia'})
+        // }
         const data = [...findDataKalab, ...findDataAsisten]
         return res.status(200).json({success: true, message: 'Data pengguna ditemukan', data: data})
     } catch (error) {
