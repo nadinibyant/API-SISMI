@@ -121,9 +121,6 @@ const dataPengguna = async (req,res) => {
                 }
             ]
         })
-        if (findDataAsisten.length <= 0) {
-            return res.status(400).json({success: false, message: 'Data asisten belum tersedia'})
-        }
         const findDataKalab = await modelKalab.findAll()
         // if (findDataKalab.length <= 0) {
         //     return res.status(400).json({success: false, message: 'Data kepala laboratorium belum tersedia'})
@@ -135,7 +132,6 @@ const dataPengguna = async (req,res) => {
         return res.status(500).json({success: false, message: 'Kesalahan server'})
     }
 }
-
 //detail akun pengguna
 const detailPengguna = async (req,res) => {
     try {
