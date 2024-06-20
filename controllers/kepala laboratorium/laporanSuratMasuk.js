@@ -98,7 +98,8 @@ const generateLaporanMasuk = async (req,res) =>{
         res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
    
-        res.send(buf);
+        // res.send(buf);
+        res.status(200).json({ success: true, fileName: fileName });
 
         // return res.status(200).json({success: true, message: 'Laporan berhasil digenerate'})
     } catch (error) {
