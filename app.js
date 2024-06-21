@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/fileSuratMahasiswa', express.static('public/doc/suratMahasiswa'))
-app.use('/fileSuratMasuk', express.static('public/Asisten/suratMasuk'))
-app.use('/fileSuratKeluar', express.static('public/Asisten/suratKeluar'))
+app.use('/fileSuratMasuk', express.static('public/doc/Asisten/suratMasuk'))
+app.use('/fileSuratKeluar', express.static('public/doc/Asisten/suratKeluar'))
 app.use('/ttd', express.static('public/images/ttd'))
 app.use(cors({
   origin: 'http://localhost:5137'
