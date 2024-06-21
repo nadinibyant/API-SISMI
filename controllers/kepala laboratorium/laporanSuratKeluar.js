@@ -42,10 +42,7 @@ const generateLaporanKeluar = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Data surat keluar belum tersedia' });
         }
 
-        const content = fs.readFileSync(
-            path.resolve(__dirname, '../../public/doc/template/Laporan_Surat Keluar.docx'),
-            "binary"
-        );
+        const content = fs.readFileSync(path.resolve(__dirname, '../', '../', 'public', 'doc', 'template', 'Laporan_Surat Keluar.docx'), "binary");
         const zip = new PizZip(content);
         const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
@@ -67,7 +64,7 @@ const generateLaporanKeluar = async (req, res) => {
 
         const timestamp = new Date().toISOString().replace(/[-T:.Z]/g, '').slice(0, 14);
         const fileName = `Laporan_Surat_Keluar_${tanggal_awal}_${tanggal_akhir}_${timestamp}.docx`;
-        const outputPath = path.resolve(__dirname, '../../public/doc/laporanSuratKeluar', fileName);
+        const outputPath = path.resolve(__dirname, '../', '../', 'public', 'doc', 'laporanSuratKeluar', fileName);
 
         fs.writeFileSync(outputPath, buf);
 
@@ -78,5 +75,4 @@ const generateLaporanKeluar = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Kesalahan Server' });
     }
 };
-
 module.exports = {generateLaporanKeluar}
