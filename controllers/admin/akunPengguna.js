@@ -121,13 +121,10 @@ const dataPengguna = async (req,res) => {
                 }
             ]
         })
-        if (findDataAsisten.length <= 0) {
-            return res.status(400).json({success: false, message: 'Data asisten belum tersedia'})
-        }
         const findDataKalab = await modelKalab.findAll()
-        if (findDataKalab.length <= 0) {
-            return res.status(400).json({success: false, message: 'Data kepala laboratorium belum tersedia'})
-        }
+        // if (findDataKalab.length <= 0) {
+        //     return res.status(400).json({success: false, message: 'Data kepala laboratorium belum tersedia'})
+        // }
         const data = [...findDataKalab, ...findDataAsisten]
         return res.status(200).json({success: true, message: 'Data pengguna ditemukan', data: data})
     } catch (error) {
@@ -135,7 +132,6 @@ const dataPengguna = async (req,res) => {
         return res.status(500).json({success: false, message: 'Kesalahan server'})
     }
 }
-
 //detail akun pengguna
 const detailPengguna = async (req,res) => {
     try {
@@ -264,7 +260,7 @@ const editPengguna = async (req,res) => {
                 await modelAsisten.update({
                     nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
                     ttd_asisten: ttd.originalname,
-                    role: findRole.id_role || findNamaAsisten.id_role
+                    id_role: findRole.id_role || findNamaAsisten.id_role
                 }, {
                     where:{
                         nama_asisten: nama
@@ -274,7 +270,7 @@ const editPengguna = async (req,res) => {
             }
             await modelAsisten.update({
                 nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
-                role: findRole.id_role || findNamaAsisten.id_rp
+                id_role: findRole.id_role || findNamaAsisten.id_role
             }, {
                 where:{nama_asisten: nama}
             })
@@ -288,7 +284,7 @@ const editPengguna = async (req,res) => {
                 nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
                 password_asisten: hashedPass,
                 ttd_asisten: ttd.originalname,
-                role: findRole.id_role || findNamaAsisten.id_role
+                id_role: findRole.id_role || findNamaAsisten.id_role
             }, {
                 where:{
                     nama_asisten: nama
@@ -299,8 +295,7 @@ const editPengguna = async (req,res) => {
         await modelAsisten.update({
             nama_asisten: nama_baru || findNamaAsisten.nama_asisten,
             password_asisten: hashedPass || findNamaAsisten.password_asisten,
-    
-            role: findRole.id_role || findNamaAsisten.id_role
+            id_role: findRole.id_role || findNamaAsisten.id_role
         }, {
             where: {
                 nama_asisten: nama
