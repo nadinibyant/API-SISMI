@@ -59,7 +59,7 @@ const tambahSurat = async (req,res) => {
         //     }
         //     console.log(`stdout: ${stdout}`);
         //     console.error(`stderr: ${stderr}`);
-            return res.status(200).json({ success: true, message: 'Data surat keluar berhasil ditambahkan dan disimpan ke GitHub' });
+            return res.status(200).json({ success: true, message: 'Data surat keluar berhasil ditambahkan' });
         // });
     } catch (error) {
         console.log(error)
