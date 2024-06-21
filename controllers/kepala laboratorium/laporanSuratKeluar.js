@@ -78,11 +78,18 @@ const generateLaporanKeluar = async (req,res) =>{
         const timestamp = new Date().toISOString().replace(/[-T:.Z]/g, '').slice(0, 14);
         const fileName = `Laporan_Surat_Keluar_${tanggal_awal}_${tanggal_akhir}_${timestamp}.docx`;
   
-        fs.writeFileSync(path.resolve(__dirname, '../', '../', 'public', 'doc', 'laporanSuratKeluar', fileName), buf); 
-        res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
-        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        // fs.writeFileSync(path.resolve(__dirname, '../', '../', 'public', 'doc', 'laporanSuratKeluar', fileName), buf); 
+        // res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+        // res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
    
-        res.send(buf);
+        // res.send(buf);
+        const outputPath = path.resolve(__dirname, '../', '../', 'public', 'doc', 'laporanSuratKeluar', fileName);
+        fs.writeFileSync(outputPath, buf);
+
+        // Kirim respons dengan nama file untuk digunakan di frontend
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        res.download(outputPath, fileName);
+
 
     } catch (error) {
         console.log(error)
