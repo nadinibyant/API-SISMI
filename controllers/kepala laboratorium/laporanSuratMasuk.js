@@ -98,6 +98,7 @@ const generateLaporanMasuk = async (req, res) => {
         fs.writeFileSync(outputPath, buf);
 
         // Kirim respons dengan nama file untuk digunakan di frontend
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
         res.download(outputPath, fileName);
 
     } catch (error) {
