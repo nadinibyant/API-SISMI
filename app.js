@@ -14,10 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/fileSuratMahasiswa', express.static('public/doc/suratMahasiswa'))
-app.use('/fileSuratMasuk', express.static('public/doc/Asisten/suratMasuk'))
-app.use('/fileSuratKeluar', express.static('public/doc/Asisten/suratKeluar'))
-app.use('/ttd', express.static('public/images/ttd'))
+app.use('/fileSuratMahasiswa', express.static(path.join(__dirname, 'public/doc/suratMahasiswa')));
+app.use('/fileSuratMasuk', express.static(path.join(__dirname, 'public/doc/Asisten/suratMasuk')));
+app.use('/fileSuratKeluar', express.static(path.join(__dirname, 'public/doc/Asisten/suratKeluar')));
+app.use('/ttd', express.static(path.join(__dirname, 'public/images/ttd')));
 app.use(cors({
   origin: 'http://localhost:5137'
 })) 
