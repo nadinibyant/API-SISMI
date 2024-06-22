@@ -455,4 +455,4 @@ const generatePinjamBarang = async (req,res) => {
 }
 
 
-module.exports = {allJenisSurat, tambahSurat, generateSurat, allBarang, generatePinjamRuang, generatePermohonTA, generatePinjamBarang}
+module.exports = {allJenisSurat, tambahSurat, allBarang, generatePinjamRuang, generatePermohonTA, generatePinjamBarang}
