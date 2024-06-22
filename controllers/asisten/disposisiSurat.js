@@ -119,9 +119,14 @@ const detailSurat = async (req,res) => {
                     model: modelSuratMahasiswa,
                     as: 'dataSuratMhs', 
                     attributes: ['nama_surat_mahasiswa','file_surat_mahasiswa']
+                },
+                {
+                    model: modelSuratKeluar,
+                    as: 'dataSuratKeluar',
+                    attributes: ['nama_surat_keluar', 'file_surat_keluar']
                 }
             ],
-            attributes: ['id_surat_mahasiswa']
+            attributes: ['id_surat_mahasiswa', 'no_surat_keluar']
         })
         if (!findDisposisi) {
             return res.status(400).json({success: false, message: 'Data disposisi surat tidak ditemukan'})
