@@ -146,7 +146,7 @@ const detailSurat = async (req,res) => {
                     attributes: ['nama_surat_keluar', 'file_surat_keluar']
                 }
             ],
-            attributes: ['id_surat_mahasiswa', 'no_surat_keluar']
+            attributes: ['id_surat_mahasiswa', 'no_surat_keluar', 'tujuan_disposisi']
         })
         if (!findDisposisi) {
             return res.status(400).json({success: false, message: 'Data disposisi surat tidak ditemukan'})
