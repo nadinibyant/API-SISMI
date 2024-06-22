@@ -490,7 +490,7 @@ const generatePermohonTA = async (req,res) => {
             return res.status(400).json({success: false, message: 'Data kalab tidak ditemukan'})
         }
 
-        const {nama_generate, keperluan_peminjaman_ruangan, tanggal_peminjaman_ruangan, waktu_peminjaman_ruangan} = req.body
+        const {nama_generate} = req.body
         let total = 0
         const findAllGenerate = await modelGenerateSurat.findAll()
         if (findAllGenerate.length <= 0) {
