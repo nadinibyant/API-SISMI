@@ -2,6 +2,8 @@ const modelDisposisiSurat = require('../../models/disposisi_surat')
 const modelSuratMahasiswa = require('../../models/surat_mahasiswa')
 const modelMahasiswa = require('../../models/mahasiswa')
 const modelSuratKeluar = require('../../models/surat_keluar')
+const modelAsisten = require('../../models/asisten')
+
 const { Op } = require('sequelize');
 
 //tampil seluruh data disposisi (hanya yang dari mahasiswa)
