@@ -444,7 +444,122 @@ const generatePinjamRuang = async (req,res) => {
             waktu_peminjaman_ruang: waktu_peminjaman_ruangan,
             hasil_generate: `${nama_generate}_${findMhs.nama_mahasiswa}.docx`
         })
+        i++
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        res.download(outputPath, fileName);
+    
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({success:false, message: "Kesalahan Server"})
+    }
+}
 
+const generatePermohonTA = async (req,res) => {
+    try {
+        const {id_jenis} = req.params
+        let i = 1;
+        const nim_mahasiswa = req.mahasiswa.nim_mahasiswa
+        console.log(nim_mahasiswa)
+        const findMhs = await modelMahasiswa.findByPk(nim_mahasiswa)
+        if (!findMhs) {
+            return res.status(400).json({success: false, message: 'Data mahasiswa tidak ditemukan'})
+        }
+        const findJenis = await modelJenisSurat.findByPk(id_jenis)
+        if (!findJenis) {
+            return res.status(400).json({success: false, message: 'Jenis surat tidak ditemukan'})
+        }
+        const findKoor = await modelAsisten.findOne({
+            include: [
+                {
+                    model: modelRoleAsisten,
+                    as: 'dataRole',
+                    where:{
+                        nama_role: 'koordinator asisten'
+                    },
+                    attributes: ['nama_role']
+                }
+            ],
+            attributes: ['nama_asisten']
+        })
+        if (!findKoor) {
+            return res.status(400).json({success: false, message: 'Data koordinator asisten tidak ditemukan'})
+        }
+
+        const findKalab = await modelKalab.findOne()
+        if (!findKalab) {
+            return res.status(400).json({success: false, message: 'Data kalab tidak ditemukan'})
+        }
+
+        const {nama_generate, keperluan_peminjaman_ruangan, tanggal_peminjaman_ruangan, waktu_peminjaman_ruangan} = req.body
+        let total = 0
+        const findAllGenerate = await modelGenerateSurat.findAll()
+        if (findAllGenerate.length <= 0) {
+            total = total + 1
+        }
+        total = total + findAllGenerate.length + 1
+
+        const findGenerate = await modelGenerateSurat.findOne({where:{nama_generate: nama_generate}})
+        if (findGenerate) {
+            return res.status(400).json({success: false, message: 'Nama generate sudah digunakan'})
+        }
+
+        const date = new Date()
+        const day = date.getDay()
+        const tanggal = date.getDate()
+        const month = date.getMonth()
+        const year = date.getFullYear()
+
+        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+        const dayName = days[day]; 
+        const monthName = months[month];
+
+        if (!nama_generate) {
+            return res.status(400).json({success: false, message: 'Silahkan lengkapi data surat anda'})
+        }
+        const content = fs.readFileSync(
+            path.resolve(__dirname,  '../', '../', 'public', 'doc', 'template', 'Surat_Permohonan Pengerjaan TA.docx'),
+            "binary"
+        );
+
+        const zip = new PizZip(content);
+
+        const doc = new Docxtemplater(zip, {
+            paragraphLoop: true,
+            linebreaks: true,
+        });
+
+        doc.render({
+            nomor: total,
+            tahun: year,
+            tanggal: tanggal,
+            bulan: monthName,
+            nama_mahasiswa: findMhs.nama_mahasiswa,
+            nim_mahasiswa: nim_mahasiswa,
+            alamat_mahasiswa: findMhs.alamat_mahasiswa,
+            koordinator_asisten: findKoor.nama_asisten,
+            nama_kalab: findKalab.nama_kalab,
+            nip_kalab: findKalab.nip_kalab
+        });
+
+        const buf = doc.getZip().generate({
+            type: "nodebuffer",
+            compression: "DEFLATE",
+        });
+
+        const fileName = `${nama_generate}_${findMhs.nama_mahasiswa}_PengerjaanTA.docx`;
+        const outputPath = path.resolve(__dirname, '../', '../', 'public', 'doc', 'generate', fileName);
+        fs.writeFileSync(outputPath, buf)
+
+        await modelGenerateSurat.create({
+            id_jenis: id_jenis,
+            nim_mahasiswa: nim_mahasiswa,
+            nama_generate: nama_generate,
+            hasil_generate: `${nama_generate}_${findMhs.nama_mahasiswa}_PengerjaanTA.pdf`
+        })
+        
+        i++
         res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
         res.download(outputPath, fileName);
     } catch (error) {
@@ -454,4 +569,4 @@ const generatePinjamRuang = async (req,res) => {
 }
 
 
-module.exports = {allJenisSurat, tambahSurat, generateSurat, allBarang, generatePinjamRuang}
+module.exports = {allJenisSurat, tambahSurat, generateSurat, allBarang, generatePinjamRuang, generatePermohonTA}
