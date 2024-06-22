@@ -69,6 +69,7 @@ const generateSurat = async (req,res) => {
         const {id_jenis} = req.params
         let i = 1;
         const nim_mahasiswa = req.mahasiswa.nim_mahasiswa
+        console.log(nim_mahasiswa)
         const findMhs = await modelMahasiswa.findByPk(nim_mahasiswa)
         if (!findMhs) {
             return res.status(400).json({success: false, message: 'Data mahasiswa tidak ditemukan'})
@@ -161,7 +162,10 @@ const generateSurat = async (req,res) => {
                 compression: "DEFLATE",
             });
 
-            fs.writeFileSync(path.resolve(__dirname,  '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanRuangan.docx`), buf);
+            const docxPath = path.resolve(__dirname, '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanRuangan.docx`);
+            fs.writeFileSync(docxPath, buf);
+
+            // fs.writeFileSync(path.resolve(__dirname,  '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanRuangan.docx`), buf);
             await modelGenerateSurat.create({
                 id_jenis: id_jenis,
                 nama_generate: nama_generate,
@@ -244,7 +248,10 @@ const generateSurat = async (req,res) => {
                 compression: "DEFLATE",
             });
 
-            fs.writeFileSync(path.resolve(__dirname,  '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanBarang.docx`), buf);
+            const docxPath = path.resolve(__dirname, '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanBarang.docx`);
+            fs.writeFileSync(docxPath, buf);
+
+            // fs.writeFileSync(path.resolve(__dirname,  '../', '../', 'public', 'doc', 'generate', `${nama_generate}_${findMhs.nama_mahasiswa}_PeminjamanBarang.docx`), buf);
 
             const addGenerate = await modelGenerateSurat.create({
                 id_jenis: id_jenis,
@@ -326,6 +333,5 @@ const generateSurat = async (req,res) => {
         return res.status(500).json({success: false, message: 'Kesalahan Server'})
     }
 }
-
 
 module.exports = {allJenisSurat, tambahSurat, generateSurat, allBarang}
