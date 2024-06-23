@@ -16,7 +16,7 @@ const dataDisposisi = async (req,res) => {
                     as: 'dataSuratMhs'
                 }
             ],
-            attributes: ['id_disposisi', 'tujuan_disposisi']
+            attributes: ['id_disposisi', 'tujuan_disposisi', 'status_disposisi']
         })
         if (findData.length <= 0) {
             return res.status(400).json({success: false, message: 'Data disposisi tidak ditemukan'})
