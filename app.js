@@ -19,7 +19,7 @@ app.use('/fileSuratMasuk', express.static(path.join(__dirname, 'public/doc/Asist
 app.use('/fileSuratKeluar', express.static(path.join(__dirname, 'public/doc/Asisten/suratKeluar')));
 app.use('/ttd', express.static(path.join(__dirname, 'public/images/ttd')));
 app.use(cors({
-  origin: 'http://localhost:5137'
+  origin: 'https://main--simsi-lbi.netlify.app'
 })) 
 
 
