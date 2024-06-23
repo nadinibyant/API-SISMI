@@ -18,9 +18,16 @@ app.use('/fileSuratMahasiswa', express.static(path.join(__dirname, 'public/doc/s
 app.use('/fileSuratMasuk', express.static(path.join(__dirname, 'public/doc/Asisten/suratMasuk')));
 app.use('/fileSuratKeluar', express.static(path.join(__dirname, 'public/doc/Asisten/suratKeluar')));
 app.use('/ttd', express.static(path.join(__dirname, 'public/images/ttd')));
-app.use(cors({
-  origin: 'https://main--simsi-lbi.netlify.app'
-})) 
+// app.use(cors({
+//   origin: 'https://main--simsi-lbi.netlify.app'
+// })) 
+
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+}
 
 
 
