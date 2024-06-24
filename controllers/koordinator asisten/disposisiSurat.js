@@ -108,10 +108,10 @@ const tandaTangan = async (req,res) => {
 
         let pdfPath
 
-        if (findDisposisi.id_surat_mahasiswa != null) {
-            pdfPath = path.join(__dirname, '../', '../', 'public', 'doc', 'suratMahasiswa', findDisposisi.dataSuratKeluar.file_surat_mahasiswa)
+       if (findDisposisi.id_surat_mahasiswa != null) {
+            pdfPath = path.join(__dirname, '../', '../', 'public', 'doc', 'suratMahasiswa', findDisposisi.dataValues.dataSuratMhs.file_surat_mahasiswa)
         }
-        pdfPath = path.join(__dirname, '../', '../', 'public', 'doc', 'Asisten', 'suratKeluar', findDisposisi.dataSuratKeluar.file_surat_keluar)
+        pdfPath = path.join(__dirname, '../', '../', 'public', 'doc', 'Asisten', 'suratKeluar', findDisposisi.dataValues.dataSuratKeluar.file_surat_keluar)
 
         const pdfbytes = fs.readFileSync(pdfPath)
 
