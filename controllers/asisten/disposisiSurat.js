@@ -111,7 +111,7 @@ const selesaiDisposisi = async (req,res) => {
         if (!findDisposisi) {
            return res.status(400).json({success: false, message: 'Data disposisi surat tidak ditemukan'}) 
         }
-        if (findDisposisi.status_disposisi !== 'TTD Kalab') {
+        if (findDisposisi.status_disposisi !== 'selesai TTD') {
             return res.status(400).json({success: false, message: 'Anda belum dapat menyelesaikan proses disposisi surat'})
         }
         await modelDisposisiSurat.update({
@@ -127,7 +127,6 @@ const selesaiDisposisi = async (req,res) => {
         return res.status(500).json({success: false, message: 'Kesalahan Server'})
     }
 }
-
 
 //detail surat
 const detailSurat = async (req,res) => {
