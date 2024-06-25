@@ -132,7 +132,7 @@ const tandaTangan = async (req,res) => {
         const pdfUpdated = await pdfDoc.save()
         fs.writeFileSync(pdfPath, pdfUpdated)
         await modelDisposisiSurat.update({
-            status_disposisi: 'selesai'
+            status_disposisi: 'selesai TTD'
         }, {
             where:{
                 id_disposisi: id_disposisi
