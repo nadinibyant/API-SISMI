@@ -27,11 +27,7 @@ const corsOptions = {
   optionsSuccessStatus: 204
 }
 
-app.use(cors({
- corsOptions
-})) 
-
-
+app.use(cors(corsOptions));
 
 app.use('/', server.admin)
 app.use('/', server.akunPengguna)
