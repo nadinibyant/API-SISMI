@@ -43,7 +43,7 @@ const tambahDisposisi = async (req,res) => {
         await modelDisposisiSurat.create({
             no_surat_keluar: no_surat_keluar,
             tujuan_disposisi: tujuan_disposisi,
-            status_disposisi: 'menunggu',
+            status_disposisi: 'TTD Kordas',
             pemberi_disposisi_asisten: id_asisten
         })
         return res.status(200).json({success: true, message: 'Data berhasil ditambahkan'})
